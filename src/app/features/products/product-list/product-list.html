@@ -1,0 +1,97 @@
+<section class="products-page">
+  <div class="toolbar" aria-label="Herramientas de productos">
+    <label class="search-field">
+      <span class="visually-hidden">Buscar productos</span>
+      <input
+        type="search"
+        placeholder="Search..."
+        [value]="searchTerm()"
+        (input)="updateSearch($any($event.target).value)"
+      />
+    </label>
+
+    <a class="add-button" routerLink="/products/new">Agregar</a>
+  </div>
+
+  <div class="table-shell">
+    @if (isLoading()) {
+      <p class="state-message">Cargando productos...</p>
+    } @else if (errorMessage()) {
+      <p class="state-message error" role="alert">{{ errorMessage() }}</p>
+    } @else {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Logo</th>
+              <th scope="col">Nombre del producto</th>
+              <th scope="col">
+                Descripción
+                <span class="info" title="Descripción del producto">i</span>
+              </th>
+              <th scope="col">
+                Fecha de liberación
+                <span class="info" title="Fecha en la que se libera el producto">i</span>
+              </th>
+              <th scope="col">
+                Fecha de reestructuración
+                <span class="info" title="Fecha de revisión del producto">i</span>
+              </th>
+              <th scope="col">
+                <span class="visually-hidden">Acciones</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (product of visibleProducts(); track product.id) {
+              <tr>
+                <td>
+                  <span class="logo-badge" [title]="product.logo">{{ initials(product) }}</span>
+                </td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.date_release | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ product.date_revision | date: 'dd/MM/yyyy' }}</td>
+                <td class="actions-cell">
+                  <button
+                    type="button"
+                    class="icon-button"
+                    title="Abrir acciones"
+                    [attr.aria-expanded]="activeMenuId() === product.id"
+                    [attr.aria-controls]="'menu-' + product.id"
+                    (click)="toggleMenu(product.id)"
+                  >
+                    ...
+                  </button>
+
+                  @if (activeMenuId() === product.id) {
+                    <div class="row-menu" [id]="'menu-' + product.id" role="menu">
+                      <a role="menuitem" [routerLink]="['/products', product.id, 'edit']">Editar</a>
+                    </div>
+                  }
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="6" class="empty-state">No hay productos para mostrar.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <strong>{{ visibleProducts().length }} Resultados</strong>
+
+        <label>
+          <span class="visually-hidden">Cantidad de registros</span>
+          <select [value]="pageSize()" (change)="updatePageSize($any($event.target).value)">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+      </div>
+    }
+  </div>
+</section>

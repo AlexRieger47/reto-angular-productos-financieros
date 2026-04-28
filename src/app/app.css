@@ -1,0 +1,55 @@
+.brand-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88px;
+  background: #ffffff;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  color: #142c63;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 30px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand-icon {
+  position: relative;
+  width: 38px;
+  height: 28px;
+  border: 3px solid #142c63;
+  border-radius: 4px;
+}
+
+.brand-icon::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  width: 28px;
+  height: 22px;
+  border: 3px solid #142c63;
+  border-bottom: 0;
+  border-left: 0;
+  border-radius: 4px 4px 0 0;
+}
+
+.brand-icon span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: 3px solid #142c63;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+main {
+  min-height: calc(100vh - 88px);
+  background: #f4f6fa;
+}

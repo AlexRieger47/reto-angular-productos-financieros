@@ -1,0 +1,106 @@
+<section class="form-page">
+  <div class="form-shell">
+    <h1>{{ title() }}</h1>
+
+    @if (isLoading()) {
+      <p class="state-message">Cargando producto...</p>
+    } @else {
+      @if (errorMessage()) {
+        <p class="alert alert-error" role="alert">{{ errorMessage() }}</p>
+      }
+
+      @if (successMessage()) {
+        <p class="alert alert-success" role="status">{{ successMessage() }}</p>
+      }
+
+      <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <div class="form-grid">
+          <label class="field">
+            <span>ID</span>
+            <input
+              type="text"
+              formControlName="id"
+              [class.invalid]="hasError('id')"
+              [attr.aria-invalid]="hasError('id')"
+              aria-describedby="id-error"
+            />
+            <small id="id-error">{{ controlError('id') }}</small>
+          </label>
+
+          <label class="field">
+            <span>Nombre</span>
+            <input
+              type="text"
+              formControlName="name"
+              [class.invalid]="hasError('name')"
+              [attr.aria-invalid]="hasError('name')"
+              aria-describedby="name-error"
+            />
+            <small id="name-error">{{ controlError('name') }}</small>
+          </label>
+
+          <label class="field">
+            <span>Descripción</span>
+            <input
+              type="text"
+              formControlName="description"
+              [class.invalid]="hasError('description')"
+              [attr.aria-invalid]="hasError('description')"
+              aria-describedby="description-error"
+            />
+            <small id="description-error">{{ controlError('description') }}</small>
+          </label>
+
+          <label class="field">
+            <span>Logo</span>
+            <input
+              type="text"
+              formControlName="logo"
+              [class.invalid]="hasError('logo')"
+              [attr.aria-invalid]="hasError('logo')"
+              aria-describedby="logo-error"
+            />
+            <small id="logo-error">{{ controlError('logo') }}</small>
+          </label>
+
+          <label class="field">
+            <span>Fecha Liberación</span>
+            <input
+              type="date"
+              formControlName="date_release"
+              [min]="minReleaseDate"
+              [class.invalid]="hasError('date_release')"
+              [attr.aria-invalid]="hasError('date_release')"
+              aria-describedby="date-release-error"
+            />
+            <small id="date-release-error">{{ controlError('date_release') }}</small>
+          </label>
+
+          <label class="field">
+            <span>Fecha Revisión</span>
+            <input
+              type="date"
+              formControlName="date_revision"
+              readonly
+              [class.invalid]="hasError('date_revision')"
+              [attr.aria-invalid]="hasError('date_revision')"
+              aria-describedby="date-revision-error"
+            />
+            <small id="date-revision-error">{{ controlError('date_revision') }}</small>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="secondary" (click)="resetForm()" [disabled]="isEdit() || isSaving()">
+            Reiniciar
+          </button>
+          <button type="submit" class="primary" [disabled]="isSaving()">
+            {{ isSaving() ? 'Enviando...' : 'Enviar' }}
+          </button>
+        </div>
+      </form>
+
+      <a class="back-link" routerLink="/products">Volver al listado</a>
+    }
+  </div>
+</section>
