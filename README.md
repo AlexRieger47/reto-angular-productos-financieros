@@ -75,9 +75,11 @@ npm.cmd test -- --runInBand
 
 ## Funcionalidades
 
-- `/products`: listado de productos, busqueda, selector 5/10/20 y contador de resultados visibles.
+- `/products`: listado de productos, busqueda, selector 5/10/20, contador de resultados visibles y controles de desplazamiento entre paginas.
 - `/products/new`: formulario de creacion con validaciones visuales.
 - `/products/:id/edit`: formulario de edicion con ID deshabilitado.
+
+Nota de criterio UX: los controles de desplazamiento del listado son una mejora intencional. El documento tecnico solo pide seleccionar 5, 10 o 20 registros visibles, pero si existen mas productos que el limite seleccionado, los botones Anterior/Siguiente evitan que el usuario piense que faltan datos.
 
 Validaciones principales:
 

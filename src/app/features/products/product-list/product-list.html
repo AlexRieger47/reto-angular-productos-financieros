@@ -81,16 +81,38 @@
       </div>
 
       <div class="table-footer">
-        <strong>{{ visibleProducts().length }} Resultados</strong>
+        <strong>{{ visibleProducts().length }} de {{ filteredProducts().length }} Resultados</strong>
 
-        <label>
-          <span class="visually-hidden">Cantidad de registros</span>
-          <select [value]="pageSize()" (change)="updatePageSize($any($event.target).value)">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-          </select>
-        </label>
+        <div class="footer-controls">
+          <div class="pagination-controls" aria-label="Paginación de productos">
+            <button
+              type="button"
+              title="Página anterior"
+              [disabled]="!canGoPrevious()"
+              (click)="goPrevious()"
+            >
+              ‹
+            </button>
+            <span>Página {{ currentPage() + 1 }} de {{ totalPages() }}</span>
+            <button
+              type="button"
+              title="Página siguiente"
+              [disabled]="!canGoNext()"
+              (click)="goNext()"
+            >
+              ›
+            </button>
+          </div>
+
+          <label>
+            <span class="visually-hidden">Cantidad de registros</span>
+            <select [value]="pageSize()" (change)="updatePageSize($any($event.target).value)">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+            </select>
+          </label>
+        </div>
       </div>
     }
   </div>

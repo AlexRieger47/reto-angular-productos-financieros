@@ -30,6 +30,18 @@
   background: #ffdf4d;
   font-weight: 700;
   text-decoration: none;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.add-button:hover {
+  background: #ffe978;
+  box-shadow: 0 8px 18px rgb(20 44 99 / 14%);
+  transform: translateY(-1px);
+}
+
+.add-button:active {
+  background: #f2c700;
+  transform: translateY(0);
 }
 
 .table-shell {
@@ -154,6 +166,43 @@ th {
   color: #5d6470;
 }
 
+.footer-controls,
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-controls {
+  color: #5d6470;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pagination-controls button {
+  width: 38px;
+  height: 38px;
+  border: 2px solid #b8bec8;
+  border-radius: 4px;
+  color: #142c63;
+  background: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  border-color: #142c63;
+  background: #eef3ff;
+}
+
+.pagination-controls button:disabled {
+  color: #9aa1ad;
+  background: #f7f8fa;
+  opacity: 0.7;
+}
+
 select {
   width: 86px;
   height: 38px;
@@ -162,6 +211,12 @@ select {
   padding: 0 14px;
   background: #ffffff;
   font-weight: 700;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+select:hover {
+  border-color: #142c63;
+  background: #f8faff;
 }
 
 .state-message,
@@ -202,5 +257,19 @@ select {
 
   .table-shell {
     padding: 16px;
+  }
+
+  .table-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .footer-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .pagination-controls {
+    gap: 8px;
   }
 }

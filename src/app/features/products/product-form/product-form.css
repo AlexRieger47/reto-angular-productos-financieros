@@ -75,6 +75,16 @@ small {
   border-radius: 4px;
   padding: 0 28px;
   font-weight: 700;
+  transition: background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.actions button:hover:not(:disabled) {
+  box-shadow: 0 8px 18px rgb(20 44 99 / 14%);
+  transform: translateY(-1px);
+}
+
+.actions button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .primary {
@@ -82,9 +92,17 @@ small {
   background: #ffed78;
 }
 
+.primary:hover:not(:disabled) {
+  background: #ffe25c;
+}
+
 .secondary {
   color: #142c63;
   background: #e9ecf3;
+}
+
+.secondary:hover:not(:disabled) {
+  background: #dfe5f1;
 }
 
 .actions button:disabled {

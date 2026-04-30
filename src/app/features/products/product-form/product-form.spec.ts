@@ -43,7 +43,7 @@ describe('ProductForm', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Enviar' }));
 
-    expect(await screen.findAllByText('Este campo es requerido!')).toHaveLength(6);
+    expect(await screen.findAllByText('¡Este campo es requerido!')).toHaveLength(6);
   });
 
   it('auto-fills revision date one year after release date', async () => {

@@ -134,7 +134,7 @@ export class ProductForm implements OnInit {
     }
 
     if (control.hasError('required')) {
-      return 'Este campo es requerido!';
+      return '¡Este campo es requerido!';
     }
 
     if (control.hasError('minlength')) {
@@ -152,7 +152,7 @@ export class ProductForm implements OnInit {
     }
 
     if (control.hasError('duplicatedId')) {
-      return 'ID no válido!';
+      return '¡ID no válido!';
     }
 
     if (name === 'date_revision' && this.form.hasError('revisionMismatch')) {

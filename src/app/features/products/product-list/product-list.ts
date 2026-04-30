@@ -19,6 +19,7 @@ export class ProductList implements OnInit {
   protected readonly products = signal<Product[]>([]);
   protected readonly searchTerm = signal('');
   protected readonly pageSize = signal(5);
+  protected readonly currentPage = signal(0);
   protected readonly isLoading = signal(false);
   protected readonly errorMessage = signal('');
   protected readonly activeMenuId = signal<string | null>(null);
@@ -38,9 +39,17 @@ export class ProductList implements OnInit {
     );
   });
 
-  protected readonly visibleProducts = computed(() =>
-    this.filteredProducts().slice(0, this.pageSize())
+  protected readonly totalPages = computed(() =>
+    Math.max(1, Math.ceil(this.filteredProducts().length / this.pageSize()))
   );
+
+  protected readonly visibleProducts = computed(() => {
+    const start = this.currentPage() * this.pageSize();
+    return this.filteredProducts().slice(start, start + this.pageSize());
+  });
+
+  protected readonly canGoPrevious = computed(() => this.currentPage() > 0);
+  protected readonly canGoNext = computed(() => this.currentPage() < this.totalPages() - 1);
 
   ngOnInit(): void {
     this.loadProducts();
@@ -48,10 +57,24 @@ export class ProductList implements OnInit {
 
   protected updateSearch(value: string): void {
     this.searchTerm.set(value);
+    this.currentPage.set(0);
+    this.activeMenuId.set(null);
   }
 
   protected updatePageSize(value: string): void {
     this.pageSize.set(Number(value));
+    this.currentPage.set(0);
+    this.activeMenuId.set(null);
+  }
+
+  protected goPrevious(): void {
+    this.currentPage.update((page) => Math.max(0, page - 1));
+    this.activeMenuId.set(null);
+  }
+
+  protected goNext(): void {
+    this.currentPage.update((page) => Math.min(this.totalPages() - 1, page + 1));
+    this.activeMenuId.set(null);
   }
 
   protected toggleMenu(productId: string): void {
