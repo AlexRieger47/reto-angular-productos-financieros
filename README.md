@@ -49,7 +49,6 @@ Prepara un workspace donde tengas dicho backend Node.
 Para ejecutarlo desde ese workspace:
 
 ```bash
-cd ../support/product-api
 npm.cmd install
 npm.cmd run start:dev
 ```
