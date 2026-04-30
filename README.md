@@ -1,33 +1,50 @@
 # Reto Angular - Productos financieros
 
-Aplicacion Angular 20 para administrar productos financieros de un banco. Cubre el alcance Semisenior del reto tecnico: listado, busqueda, cantidad visible de registros, creacion, edicion y rutas.
+Aplicación Angular para administrar productos financieros bancarios. El proyecto cubre el alcance Semisenior del reto técnico: listado, búsqueda, selección de cantidad visible, creación, edición, validaciones y navegación por rutas.
 
-## Stack
+## 🧰 Stack
 
 - Angular 20.3
 - TypeScript 5.9
-- Standalone components, signals y control flow moderno
-- Reactive forms
+- Standalone components
+- Signals, `OnPush` y control flow moderno (`@if`, `@for`)
+- Reactive Forms
 - Jest + Testing Library
-- CSS propio, sin framework de estilos ni componentes prefabricados
+- CSS propio, sin Bootstrap, Material, Tailwind ni librerías de componentes
 
-## Requisitos
+## 🧩 Funcionalidades
+
+| Ruta | Descripción |
+| --- | --- |
+| `/products` | Lista productos, filtra por texto, muestra contador, selector 5/10/20 y controles de desplazamiento. |
+| `/products/new` | Crea productos con validaciones visuales y verificación asíncrona del ID. |
+| `/products/:id/edit` | Edita productos existentes con el campo ID deshabilitado. |
+
+Validaciones principales:
+
+- ID requerido, entre 3 y 10 caracteres, y validado contra el servicio de verificación.
+- Nombre requerido, entre 5 y 100 caracteres.
+- Descripción requerida, entre 10 y 200 caracteres.
+- Logo requerido.
+- Fecha de liberación igual o mayor a la fecha actual.
+- Fecha de revisión calculada exactamente un año después de la fecha de liberación.
+- Mensajes visuales bajo cada campo inválido.
+
+Los controles de desplazamiento del listado son una mejora intencional de UX. El enunciado pide seleccionar 5, 10 o 20 registros visibles; si existen más productos que el límite seleccionado, los botones Anterior/Siguiente evitan que el usuario piense que faltan datos.
+
+## ✅ Requisitos
 
 - Node.js 24.x
 - npm 11.x
-- API local del reto ejecutandose en `http://localhost:3002`
+- API local del reto ejecutándose en `http://localhost:3002`
 
-En Windows usa `npm.cmd` si PowerShell bloquea `npm.ps1`.
+En Windows, usa `npm.cmd` si PowerShell bloquea `npm.ps1`.
 
-## API local
+## 🔌 API local
 
-El reto indica consumir un backend Node local provisto junto con el material tecnico. Este repositorio contiene solo el frontend Angular para mantener el entregable limpio.
+El reto solicita consumir el backend Node provisto con el material técnico. Este repositorio contiene solo el frontend Angular para mantener el entregable limpio.
 
-En el workspace usado durante el desarrollo, el API de soporte quedo preservado en:
-
-```text
-../support/product-api
-```
+Prepara un workspace donde tengas dicho backend Node.
 
 Para ejecutarlo desde ese workspace:
 
@@ -43,63 +60,58 @@ El servicio debe responder en:
 http://localhost:3002/bp/products
 ```
 
-## Ejecucion local
+Angular usa `proxy.conf.json` para redirigir `/bp` hacia el API local.
 
-Instala dependencias:
+## 🚀 Ejecución
+
+Instalar dependencias:
 
 ```bash
 npm.cmd install
 ```
 
-Ejecuta Angular:
+Levantar la aplicación:
 
 ```bash
 npm.cmd start
 ```
 
-La app queda disponible en:
+Abrir:
 
 ```text
 http://localhost:4200
 ```
 
-El proxy de Angular redirige `/bp` hacia `http://localhost:3002`.
+## 📜 Scripts
 
-## Scripts
+| Comando | Descripción |
+| --- | --- |
+| `npm.cmd start` | Ejecuta Angular en modo desarrollo. |
+| `npm.cmd run build` | Genera el build de producción. |
+| `npm.cmd test -- --runInBand` | Ejecuta Jest con coverage. |
+| `npm.cmd run test:watch` | Ejecuta Jest en modo observación. |
 
-```bash
-npm.cmd start
-npm.cmd run build
-npm.cmd test -- --runInBand
-```
+## 🏗️ Arquitectura
 
-## Funcionalidades
+- Componentes standalone para reducir módulos innecesarios.
+- Capa de servicio dedicada para consumo HTTP.
+- Formularios reactivos con validadores personalizados.
+- Manejo visual de estados de carga, error y vacío.
+- CSS propio alineado con las referencias visuales del reto.
+- Separación por feature para mantener el código legible y fácil de extender.
 
-- `/products`: listado de productos, busqueda, selector 5/10/20, contador de resultados visibles y controles de desplazamiento entre paginas.
-- `/products/new`: formulario de creacion con validaciones visuales.
-- `/products/:id/edit`: formulario de edicion con ID deshabilitado.
+## 🧪 Pruebas
 
-Nota de criterio UX: los controles de desplazamiento del listado son una mejora intencional. El documento tecnico solo pide seleccionar 5, 10 o 20 registros visibles, pero si existen mas productos que el limite seleccionado, los botones Anterior/Siguiente evitan que el usuario piense que faltan datos.
+El proyecto usa Jest con umbral global mínimo de coverage:
 
-Validaciones principales:
+| Métrica | Umbral |
+| --- | --- |
+| Statements | 70% |
+| Branches | 60% |
+| Functions | 70% |
+| Lines | 70% |
 
-- ID requerido, 3 a 10 caracteres y verificacion de existencia via API.
-- Nombre requerido, 5 a 100 caracteres.
-- Descripcion requerida, 10 a 200 caracteres.
-- Logo requerido.
-- Fecha de liberacion igual o mayor a la fecha actual.
-- Fecha de revision calculada exactamente un anio despues de la fecha de liberacion.
-
-## Pruebas
-
-El proyecto usa Jest con umbral global minimo de coverage:
-
-- statements: 70%
-- branches: 60%
-- functions: 70%
-- lines: 70%
-
-Ultima verificacion local:
+Última verificación local:
 
 ```text
 Test Suites: 5 passed, 5 total
